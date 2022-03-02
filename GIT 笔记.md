@@ -258,29 +258,101 @@ git的切换版本。底层其实就是移动的HEAD指针
 
 ## 代码拉取 Pull
 
+拉取也可以使用别名来拉取，拉的也是分支
 
+![image-20220302144659075](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302144659075.png)
+
+此时看本地库状态，发现拉取动作会自动提交到本地库
 
 ## 代码克隆 Clone
 
+克隆的时候先要拿到github远程库的链接
 
+![image-20220302145023717](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302145023717.png)
+
+然后直接在想放的文件夹内打开git直接进行克隆就行，不需要输入github的账号和密码
+
+![image-20220302145611056](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302145611056.png)
+
+克隆会干三件事：1.拉取代码，2.初始化本地库，3.创建别名
+
+![image-20220302145738690](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302145738690.png)
+
+
+
+## 团队协作
+
+### 团队内协协作
+
+多账号协作时想要将代码提交到别人的仓库中需要别人先给权限，需要先加到团队里面
+
+在指定仓库点设置，然后找到Manage access成员管理
+
+![image-20220302150343049](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302150343049.png)
+
+然后找到想加的人把他加进来，加进来后成员管理这就有一个地址函，也是一个链接，把这个链接发给那个人让他打开这个网址然后同意就算加到组里了就可以提交了。这时在这个人的github中也能看到远程库中的项目代码了。
+
+![image-20220302150422419](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302150422419.png)
+
+### 团队外协作
+
+团队外协作就要用fork了，可以把别人的项目叉一份到自己的账户中了，叉过来之后就可以自己进行修改了
+
+![image-20220302151222115](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302151222115.png)
+
+但此时的一切修改都是在自己的账号，如果想要让拉取的地方的人收到自己的代码，可以点这个pull request，把想给的人放到这个里面，然后这个人就会显示有一个拉取请求，可以选择将改的代码合并进来。
+
+![image-20220302153436613](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302153436613.png)
 
 ## SSH免密登录
 
+在对远程库进行操作时，除了直接用https链接进行拉取和推送外，还可以使用ssh链接，但第一次会报警告不能用，没有公共的ssh key
 
+![image-20220302154018232](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302154018232.png)
+
+要创建ssh key需要在本地的c盘用户下创建一个.ssh文件.
+
+在下面的文件夹中打开git![image-20220302154338055](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302154338055.png)
+
+然后输入
+
+```git
+ssh-keygen -t rsa -C 1169414163@qq.com
+```
+
+什么都不用输入，敲3下回车
+
+![image-20220302154655362](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302154655362.png)
+
+然后就会在该文件夹下生成一个.ssh文件夹，里面有一个公钥(.pub)一个私钥,公钥如下：
+
+![image-20220302155353450](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302155353450.png)
+
+我们需要把公钥复制到github账户中，之后这台电脑就可以免密登录这个账号了。
+
+![image-20220302155508106](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302155508106.png)
+
+![image-20220302155636234](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220302155636234.png)
 
 ## Idea集成GitHub
 
-
+（idea是java编辑器）
 
 
 
 ## Tips
 
-如果本地库中不小心放入了大文件那么整个git就显得十分的臃肿，此时可以将整个git删掉再创一个，
+- 如果本地库中不小心放入了大文件那么整个git就显得十分的臃肿，此时可以将整个git删掉再创一个，
 
-**删掉这个文件夹的整个git：**`find -name ".git" | xargs rm -Rf`
+  **删掉这个文件夹的整个git：**`find -name ".git" | xargs rm -Rf`
 
+- 如果多次push github上不去 可以试试下面这俩：
 
+  ```csharp
+  git config --global http.sslVerify "false"
+  git config --global http.postBuffer 524288000
+  //这俩分别是解除服务器ssl限制和解除默认限制的推送大小
+  ```
 
 
 
