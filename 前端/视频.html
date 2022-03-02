@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视频</title>
+</head>
+<body>
+<!--添加视频-->
+<div class="video">
+  <video src="1.mp4" width="600px" height="480px" id="videoPlayer" ontimeupdate="progressUpdate()">
+  </video>
+</div>
+<!--进度条和时间显示-->
+<div id="barContainer">
+  <div id="durationBar">
+    <div id="positionBar"><span id="displayStatus">进度条</span></div>
+  </div>
+</div>
+<!--6个工作按键-->
+<div class="btn">
+  <button onclick="play()">播放</button>
+  <button onclick="pause()">暂停</button>
+  <button onclick="stop()">停止</button>
+  <button onclick="speedUp()">加速播放</button>
+  <button onclick="slowDown()">减速播放</button>
+  <button onclick="normalSpeed()">正常速度</button>
+</div>
+<script>
+  var video;
+  var display;
+  window.onload=function (){
+    video=document.getElementById("videoPlayer") //通过id来获取指定元素
+    display=document.getElementById("displayStatus")
+  }
+  function play(){
+    video.play() ; //定义函数来对应按钮的按动来控制视频
+  }
+  function pause(){
+    video.pause() ;
+  }
+  function stop(){
+    video.pause() ;
+    video.currentTime=0; //将视频暂停并将进度条拖到开头
+  }
+  function speedUp(){
+    video.play() ;
+    video.playbackRate=2; //将视频的播放速度变为2倍
+  }
+  function slowDown(){
+    video.play() ;
+    video.playbackRate=0.5;
+  }
+  function normalSpeed(){
+    video.play() ;
+    video.playbackRate=1;
+  }
+  //进程更新函数
+  function  progressUpdate(){
+    var positionBar=document.getElementById("positionBar")
+    //时间转换成进度条的长度
+    positionBar.style.width=((video.currentTime/video.duration) * 100)+"%"
+    //将播放时间通过innerHtml方法添加到进度条的span内部，让他显示于页面
+    display.innerHTML=(Math.round(video.currentTime*100)/100)+"秒"
+  }
+</script>
+</body>
+</html>

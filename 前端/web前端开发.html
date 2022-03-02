@@ -1,0 +1,703 @@
+﻿<html>
+<head>
+<title>web前端开发</title>
+<link type="text/css"rel="stylesheet"href="web.css">
+<style type="text/css">
+body
+{
+	font-family: Arial;
+}
+.aa{
+    background:rgb(48,146,209) url("名片.jpg") no-repeat center center;
+    width:100%;
+    height:200px;
+}
+.tab{font-size:30px;font-color:red;}
+.ul ul{width:100%;height:40px;background-color:green;}
+.ul li{float:left}
+</style>
+</head>
+<body>
+详细资料：<br><a href="http://www.w3school.com.cn/h.asp">w3 school</a>
+<br><a href="https://www.html.cn/">html中文网</a>
+<br><a href="http://www.divcss5.com/">divcss5</a>
+<div class="text"></div>
+<h3>body属性</h3>
+<p>text:{rgb(r,g,b);rgb(r%,g%,b%);#rrggbb;#rgb;colorname}
+<br>bgcolor,alink(活动链接颜色)link(未访问链接颜色)vlink(已访问链接颜色)topmargin(文档中上边距的大小)leftmargin(文档中左边距的大小)
+<br>
+</p>
+<h3>文本修饰标记</h3>
+<p>b:<b>粗体;</b>
+<br>i：<i>定义斜体</i>
+<br>u：<u>定义下划线</u>
+<br>del：<del>定义删除线</del>
+<br>sup：<sup>定义上标</sup>
+<br>sub：<sub>定义下标</sub>
+<br>strong：<strong>定义着重文字（和b效果相同）</strong>
+<br>em：<em>定义加重语气（和i效果相同）</em>
+<br>small：<small>变小字号</small>
+<br>big：<big>变大字号</big>
+</p>
+<h3>计算机输出标记</h3>
+<p>code：<code>定义计算机代码</code>
+<br>kbd：<kbd>定义键盘码</kbd>
+<br>samp：<samp>定义计算机代码样本</samp>
+<br>tt：<tt>定义打字机代码</tt>
+<br>var：<var>定义变量</var>
+<br>pre：<pre>定义预格式文本</pre>
+</p>
+<h3>引用和属于标记</h3>
+<p>abbr:<abbr>定义缩写</abbr>
+<br>address：<address>定义地址</address>
+<br>blockquote：<blockquote>定义长的引用</blockquote>
+<br>cite：<cite>定义引用引证</cite>
+<br>q：<q>定义短的引用短语</q>
+<br>dfn：<dfn>定义一个定义项目</dfn>
+</p>
+<h3>< font >标记</h3>
+<p>size:&nbsp-1~+7;color;face(字体，如黑体，宋体等)</p>
+<h3>align属性</h3>
+<p>center,left,right,justfy(两端对齐)</p>
+<h3>hr标记和值</h3>
+<p>width:px或百分比
+<br>size:定义的高度 * px
+<br>noshade(无阴影)color;align
+</p>
+<h3>列表</h3>
+<p><em>列表类型与标记</em>
+<br><br>ul:无序列表；
+<br>menu:菜单列表；
+<br>dir:目录列表；
+<br>ol:有序列表；
+<br>dl:定义列表；
+<br><br><em>无序列表ul</em>
+<br>如：< ul type="">
+<br>< li type="">项目名称< /li>
+<br>< li type="">项目名称< /li>
+<br>< /ul>效果如下：
+<ul type="">
+<li>aaa</li>
+<li type="circle">bbb</li>
+<li type="square">ccc</li>
+</ul>
+<br>源码：< ul type="">
+<br>< li>aaa< /li>
+<br>< li type="circle">bbb< /li>
+<br>< li type="square">ccc< /li>
+<br>< /ul>
+<br><br>type:disc:实心圆形；circle:空心圆行。square:实心正方形。
+若在最开头的ul规定type后再在li里改type无效,ul的type会覆盖li的type。默认的type为disc（实心圆）
+<br><br>有序列表ol<em></em>
+<br><br>< ol type=""start="">
+<br>< li type=""value="">内容< /li>
+<br>< /ol>
+<br>type有五种不同的编号：1，a，A，I(罗马大写)，i(罗马小写)start是起始数值；选项中的value可以自己定义每项前的序号。
+<br><ol type="1" start="1">
+<li>bbb</li>
+<li value="3">aaa</li></ol>
+<br>源码：< ol type="1" start="1">
+<br>< li>bbb< /li>
+<br>< li value="3">aaa< /li>
+<br>< /ol>
+<br>表格可以嵌套，在某一个li里再开一个表格就可以了。
+<br><br><em>定义列表</em>
+<br><br>< dl>
+<br>< dt>项目1< /dt>
+<br>< dd>描述1< /dd>
+<br>< dd>描述2< /dd>
+<br>< /dl>
+<br><dl>
+<dt>联系人</dt>
+<dd>超帅的涛哥</dd>
+<dd>15131*****</dd>
+<dt>地址</dt>
+<dd>哈尔滨工程大学</dd>
+<dd>六公寓</dd>
+</dl>
+源码：<br>< dl>
+<br>< dt>联系人< /dt>
+<br>< dd>超帅的涛哥< /dd>
+<br>< dd>15131*****< /dd>
+<br>< dt>地址< /dt>
+<br>< dd>哈尔滨工程大学< /dd>
+<br>< dd>六公寓< /dd>
+<br>< /dl>
+</p>
+<h3>超链接</h3>
+<p>基本用法：< a href ="地址"name=" " title=“提示信息”(指向链接的提示信息) target=“窗口名称”>超链接标题<  /a >
+<br>targrt:
+<br>&nbsp&nbsp&nbsp&nbsp_self:在当前的框架中打开链接;
+<br>&nbsp&nbsp&nbsp&nbsp_blank:在一个全新的空白窗口打开链接
+<br>&nbsp&nbsp&nbsp&nbsp_top:在顶层框架中打开链接,也接来理解为在跟框架下打开链接.
+<br>&nbsp&nbsp&nbsp&nbsp_parent:在当前框架的上一层打开链接
+<br><font color="red">&nbsp&nbsp&nbsp&nbspframename:在指定的浮动框架中打开链接，框架名称可自定义</font>
+<br>路径href:
+<br>&nbsp&nbsp&nbsp&nbsp可以是某个网址如www.baidu.com也可以是该计算机中某文件的位置如C:\Users\Administrator\Desktop\web\web前端开发.html。如果本地文件与该html文件处于同一文件夹，直接写上想要超链接的文件的名称即可如：web前端开发.html
+<br>图片超链接：< a href=>< img src="">< /a>
+<br>电子邮件超链接< a href="mailto:E-mail地址【？subject=邮件主题【&参数=参数值】】“>链接内容< /a>不是很懂，用时可以查<a href="https://blog.csdn.net/u012145816/article/details/72393573">电子邮件超链接使用指南</a>
+</p>
+<h1>图像与多媒体文件</h1>
+<p><em>基本用法：</em>< img src="图片地址"alt="替代文本">
+<br>img标记属性名：
+<br>name:规定图像名称
+<br>height,width:规定图像的高度和宽度（单位是px和%）
+<br>align:top,middle,bottom,left,center,right
+<br>border:边框hspace:左侧右侧的空白vspace:顶部底部的空白(可以看成两个图像间4的间距)；单位都是px
+<br>usemap:将图像定义为客户端图像映射（不是很懂，详情：<a href="http://www.w3school.com.cn/tags/att_img_usemap.asp">usemap的用法</a>）
+<br><br><em>设置图像热区连接</em>
+<br><br>除了对整幅图像设置超链接外，还可以将图像划分为若干个区域，这叫做热区，每个区域可设置不同的超链接。包含热区的图像可称为映射图像(带有可点击区域的图像)。
+<br><em>用法：</em>< img src=""usemap="#映射图像名称">
+<br>< map name="映射图像名称">
+<br>< area shape="热区形状"coords="热区坐标"href="URL">
+<br>< /map>
+<br>shape属性：&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  coords属性：
+<br>rect:矩形属性&nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  x1,y1,x2,y2代表矩形两个顶点坐标
+<br>circle:圆形区域&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  x,y,r:圆心坐标和半径。
+<br>poly:x1,y1,x2,xy...xn,yn&nbsp 代表各顶点的坐标（首尾坐标需相同，形成封闭图形）
+<br><br><em>滚动文字</em>
+<br><br>基本用法:< marquee 
+<br>width=""(滚动范围)bgcolor=""direction="up/down/left/right"（滚动方向）
+<br>behavior="scroll（循环往复滚动（默认））/slide（滚动一次停止）/alternate（来回交替滚动）"（滚动方式）
+<br>hspace=""vspace=""（滚动空白空间）
+<br>scrollamount=""（滚动速度）scrolldelay=""（延迟时间）loop=""(滚动次数)
+<br>onmouseover="this.stop()"(当鼠标移动到滚动文字区域时滚动内容暂停)onmouseout="this.start()"(当鼠标移走时继续滚动)>滚动内容</marquee>
+<br><marquee scrollamount="50"bgcolor="blue"onmouseover="this.stop()"onmouseout="this.start()" ><font color="red"size="7">aaa</marquee>
+<br><br><em>背景音乐与其他多媒体文件</em>
+<br><br>如：< bgsound src=""loop=""（播放次数（-1表示无限播放直至关闭浏览器））>
+<br>
+
+< embed src="洛天依-雪豹悲歌.mp3"width="100"height="50"autostart="false"></embed>
+
+<br>注：使用bgsound只能设置背景音乐但不会出现播放软件的控制界面如果想播放除音乐之外的其他媒体，就只能用< embed>标记，可以播放的文件有swf，mov，mp3，wmv，avi，rmtb
+<br>基本语法：< embed src=""width=""height=""autostart="true/fales"loop="ture/false">< /embed>
+<br><br><p align="right">PS:测试中好像bgsound不能播放音乐，建议直接用embed来播放，如果不想被发现可将长宽都调成0，默认打开网页自动播放。如果放视频的话360浏览器不会播放会提示下载那个视频</p>
+</p>
+<h3>css div基础</h3>
+<ol type="1">
+<li>css的基本语法与用途
+<li>语法：选择器{属性1：属性值1；属性2：属性值2；。。。}如:p{background-color:red;font-size:20;color:blue;}
+	<br>在body内可用在< div class="">或是直接< table class="">
+	<br>也可这样定义：.text ul{} .text li{}这表示对在< div class="text">到< /div>之间的ul和li设置样式。
+</li>
+<li>选择器分类：<ol type="1">
+<li>标记选择器：也可称为元素选择器，即直接使用html里的标记名称(如p，body，h1)作为选择器，定义方法如上</li>
+<li>类选择器:定义的class属性，定义方法为选择器前加“.”如.aaa{}</li>
+<li>id选择器：与class类似但每个id属性的取值必须唯一，定义方法是选择器前加"#"如#aaa{}</li>
+<li>伪类选择器:像段落的第一行，超链接访问前访问后等就没有html标记与其对应，所以引进了伪类选择器 ，其用法为：标记：伪类名{}<br>a:link{color:green;}
+a:visited{color:yellow;}
+a:hover{color:black;}<ul>
+<li>link:超链接未访问前的样式</li>
+<li>hover：超链接在鼠标悬停时的位置</li>
+<li>active：超链接在用户激活（在鼠标单击与释放之间）时的样式</li>
+<li>visited：超链接在被访问后的样式（以上4种都是对“a”标记的伪类选择器）如:a:link{color:green;}
+a:visited{color:yellow;}
+a:hover{color:black;}</li>
+<li>first-letter:作用于p，设置第一个字符的样式</li>
+<li>first-line：作用于p，设置第一行的样式</li>
+<li>first-child：设置第一个子标记的样式</li>
+<li>lang：设置具有lang属性的标记的样式。<font color="red"size="20">(?)</font></li></ul></li></li></ul></li></ol>
+<li>多个选择器可集体声明，之间用逗号","隔开如：h1,h2,h3{}p.aaa,.ccc,#aaa{}</li>
+<li>css的定义与引用<ol type="1">
+<li>内联样式表（行内样式）（优先级最高）:基本语法:< 标记 style:"属性1：属性值1">修饰的内容< /标记><br>如：< p style="font-size:20px;">啊啊啊< /p></li>
+<li>内部样式表（标记样式）（优先级最低）:写在html的的< head>< /head>里只对所在的网页有效，使用< style>< /style>标记对来放置css规则<br>如：< style type="text/css"><br>选择器{}<br>< /style></li>
+<li>外部样式表：将css规则写在以.css为后缀的css文件里，在需要用到此样式的网页里引入该文件。一个css文件可以供多个网页使用。可分为链接外部样式表和导入外部样式表
+<ul type="circle">
+<li>外部样式表：只能存在于head标记内< link type="text/css"rel="stylesheet"href="xxx.css"></li>
+<li>导入外部样式表：< style type="text/css"><br>@import url("xxx.css")<br>选择器{属性：属性值;}<br>< /style></li>
+</ul>
+</li>
+</li>
+</ol>
+<li>css继承与层叠:行内样式>id样式>class形式>标记样式</li>
+</ol>
+<h3>div与span</h3>
+<ol type="1">
+	<li>div定义：div是分区或分节的意思是一个块级标记,以< div>开始以< /div>结束<br>用法为< div id=""class=""style="">块包含的内容</div>
+		<br>style可取的属性和值的含义:
+		<br><table border="1">
+			<tr>
+				<th>style属性</th>
+				<th>值</th>
+				<th>说明</th>
+			</tr>
+			<tr>
+				<th rowspan="5">position</th>
+				<th>static</th>
+				<th>表示静态定位，默认设置</th>
+			</tr>
+			<tr>
+				<th>absolute</th>
+				<th>表示绝对定位，与位置属性配合使用</th>
+			</tr>
+			<tr>
+				<th>relative</th>
+				<th>表示相对定位，图层不可层叠</th>
+			</tr>
+			<tr>
+				<th>fixed</th>
+				<th>表示图层位置固定，不滚动</th>
+			</tr>
+			<tr>
+				<th>inherit</th>
+				<th>规定应该从父元素继承 position 属性的值。</th>
+			</tr>
+			<tr>
+				<th>border</th>
+				<th>线粗细，线型，颜色</th>
+				<th>边框，可设置风格，粗细，颜色等属性，可按照宽度，样式，颜色一齐定义，如:<a href="http://www.w3school.com.cn/cssref/pr_border.asp">border:5px solid red;</a></th>
+			</tr>
+			<tr>
+				<th>background-color</th>
+				<th>rgb(),#ffffff,英文颜色名</th>
+				<th>背景颜色</th>
+			</tr>
+			<tr>
+				<th>left(top)</th>
+				<th>px或%</th>
+				<th>规定层左边(顶部)的距离</th>
+			</tr>
+			<tr>
+				<th>width(height)</th>
+				<th>px或%</th>
+				<th>规定层的宽度（高度）</th>
+			</tr>
+			<tr>
+				<th><a href="http://www.w3school.com.cn/cssref/pr_class_float.asp">float</a></th>
+				<th>right，left，none</th>
+				<th>允许浮动元素在左右以及不浮动。float 属性定义元素在哪个方向浮动。以往这个属性总应用于图像，使文本围绕在图像周围，不过在 CSS 中，任何元素都可以浮动。浮动元素会生成一个块级框，而不论它本身是何种元素。如果浮动非替换元素，则要指定一个明确的宽度；否则，它们会尽可能地窄。</th>
+			</tr>
+			<tr>
+				<th>clear</th>
+				<th>left,right,both,none</th>
+				<th>分别清除左边右边左右两边的浮动和允许左右两边有浮动</th>
+			</tr>
+			<tr>
+				<th>z-index</th>
+				<th>auto或数字</th>
+				<th>表示子层会按照父层的属性显示/无单位的整数或负数</th>
+			</tr>
+			<tr>
+				<th>overflow</th>
+				<th>scroll,visible,auto,hidden</th>
+				<th>内容溢出控制。分别表示显示滚动条，不显示滚动条，但超出部分可见，内容超出时显示滚动条，超出时隐藏内容</th>
+			</tr>
+			<tr>
+				<th><a href="http://www.w3school.com.cn/cssref/pr_class_display.asp">display</a></th>
+				<th>block,inline,none</th>
+				<th>表示按块元素显示，行内方式显示和隐藏</th>
+			</tr>
+			</table>
+	</li>
+	<li>图层嵌套与层叠
+		<ol type="1">
+			<li>嵌套:多个div可单独使用也可以互相包含，嵌套使用。一方面可以把页面分成不同的块，另一方面可以把功能相近的块组织到一个更大的块中便于整体控制。</li>
+			<li>层叠：必须要先将div的position属性设置为absolute（div{position:absolute;}），再利用z-index属性控制层叠关系</li></ol>
+	</li>
+	<li>span:span是行内标记，用法和div相同，可通过display转化为块标记</li>
+</ol>
+<h3>css样式属性</h3>
+<ol type="1">
+	<li>css属性值中的单位
+		<ol type="1">
+			<li>绝对单位：绝对单位在网页中很少使用，但在特殊场合用绝对单位是必要的，绝对单位包括：英寸(in)厘米(cm)毫米(mm)磅(pt)pica(pc)(1pc=12pt)</li>
+			<li>相对单位：显示大小不固定，受分辨率或浏览器设置等因素的影响，css中常使用的相对单位包括em，ex，px，%
+				<ul>
+					<li>em:表示元素的字体高度，他能根据父元素的font-szie值来确定</li>
+					<li>ex:em的值除以二</li>
+					<li>px:根据屏幕像素点来确定的，不同的分辨率下显示的样式不同。建议整个网页中只出现px或em来实现单位的统一。</li>
+					<li>是一个相对单位值，一般参考父元素中相同属性的值。</li>
+				</ul>
+			</li>
+		</ol>
+	</li>
+	<li>css字体样式:使用font标记对页面元素进行字体的样式的编辑<br>
+		<table border="1">
+			<tr>
+				<th>属性</th>
+				<th>说明</th>
+			</tr>
+			<tr>
+				<th>font-size</th>
+				<th>设置字体的大小</th>
+			</tr>
+			<tr>
+				<th>font-style</th>
+				<th>设置字体的风格:normal,italic(<font style="font-style:italic;">使用斜体文字</font>),oblique(<font style="font-style:oblique;">表示使用倾斜字体显示</font>)</th>
+			</tr>
+			<tr>
+				<th>font-variant</th>
+				<th>设置小型的大写字母字体</th>
+			</tr>
+			<tr>
+				<th>font-family</th>
+				<th>设置字体名（如宋体，黑体等）</th>
+			</tr>
+			<tr>
+				<th>font-weight</th>
+				<th><font style="font-weight:200;">设置字体的粗细:normal(表示正常的字体)bold(表示标准的粗体)bolder(表示特粗体(为相对参数))lighter(表示细体（为相对参数）)整数(取值为100,200...900.100最细，400为normal，700为bold)</font></th>
+			</tr>
+		</table>
+	</li>
+	<li>css文本样式
+		<ul>
+			<li>字符间距letter-spacing:长度单位，一般为正数，也可为负数（看浏览器是否支持）</li>
+			<li>行距line-height:length（百分比，数字）</li>
+			<li>首行缩进text-indent:长度（绝对相对长度皆可）单位或百分比单位</li>
+		</ul>
+	</li>
+	<li>字符装饰text-decoration：主要用来给文字加上下划线和删除线：none,<font style="text-decoration:underline">underline</font>,<font style="text-decoration:overline">overline</font>,<font style="text-decoration:line-through">line-through</font></li>
+	<li>水平对齐text-align属性:left，right，center，justify（表示两端对齐）</li>
+	<li>垂直对齐vertical-align:top,middle,bottom,text-top,text-bootm
+		<ul>
+			<li>top:把元素的顶端与行中最高的元素的顶端对齐</li>
+			<li>middle:把此元素放在父元素的中部</li>
+			<li>把元素的顶端与行中最低的元素的顶端对齐</li>
+			<li>text-top:把元素的顶端与父元素中字体的</li>
+		</ul>
+	</li>
+	<li>css颜色与背景
+<!--<div class="a">aaaaa</div>
+<div class="b">aaaaa</div>
+<div class="c">aaaaa</div>-->
+<ol type="1">
+	<li>颜色：color：rgb(r%,g%,b%)/rgb(r,g,b)/#ffffff/colorname</li>
+	<li>背景background属性
+		<ul>
+			<li>background-color:设置背景颜色。在html中可以使用bgcolor属性来设置背景颜色，在css中则是用这个</li>
+			<li>background-image:对指定元素设定背景图片，用法如下：background-image:url("路径");</li>
+			<li>background-repeat:背景图像重复属性:设置背景图案的重叠覆盖方式，基本语法如下：background-repeat:repeat/no-repeat（不重复填充）/repeat-x(从左到右填充)/repeat-y（从上到下填充）</li>
+			<li>background-size:
+		</ul>
+	</li>
+	<li>背景附件background-attachment:设置背景图像是否随滚动条一起滚动。scroll(一起滚动)fixed(文字内容滚动是背景附件固定不滚动。)</li>
+	<li>背景图像位置background-position:设置背景图像的具体起始位置，基本用法：background-position:百分数/长度/关键字<br>说明：图像的位置一般需要两个值，且用空格分割，两个值的单位用百分比或长度单位。第一个值表示水平位置，第二个值表示垂直位置。也可只设一个位置，另一个值自动为50%或居中。
+	<br>关键字取值表：
+		<ul>
+			<li>left/center/right:表示水平方向的三个不同的位置</li>
+			<li>top/center/bottom:表示垂直方向的三个不同位置，如果水平竖直仅规定了一个值，则另一个值的默认为center</li>
+			<li>x%,y%:x是水平位置，y是竖直位置左上角是0% 0%</li>
+			<li>xpos,ypos:xpos表示水平位置,ypos表示竖直位置，左上角是0 0</li>
+		</ul>
+	</li>
+	<li>background的复合属性：可以使用它一次性的完成背景颜色，图像，重复，位置和附件的设置。<br>基本语法：background:background-color background-image background-repeat background-attachment background-positiion;<br>如：background:rgb(48,146,209) url("名片.jpg") no-repeat center center;
+	<div class="aa">没有图片可以打开浏览器观看</div>
+	</li>
+</ol>
+</li>
+<li>css列表样式<
+<ol type="1">
+	<li>列表类型list-style-type属性：有序列表无序列表前面都有默认的列表编号和符号。在css中可以通过该属性改变默认的列表符编号和符号。<br>基本语法：list-style-type:属性值;
+		<br><ul>
+			<li type="disc">disc:实心圆</li>
+			<li type="circle">circle空心圆</li>
+			<li type="square">square实心圆</li>
+			<li type="decimal">decimal阿拉伯数字123...</li>
+			<li type="lower-roman">lower-roman小写罗马数字</li>
+			<li type="upper-roman">upper-roman大写罗马数字</li>
+			<li type="lower-alpha">lower-alpha:小写英文字母</li>
+			<li type="upper-alpha">upper-alpha:大写英文字母</li>
+			<li type="none">none:不使用项目符号。</li>
+		</ul>
+	</li>
+	<li class="l">列表项图像list-style-image属性：使用该属性可以用一张小图替换默认的列表前面的符号或编号如list-style-image:url("");</li>
+	<li>列表符号位置list-style-position属性：改变列表符和列表的相对位置，值：outside(默认值，将标记放在文本之外，而且任何换行文本在标记下均不对齐。)inside(将标记放在文本之内，而且任何换行文本均在标记下对齐)</li>
+</ol>
+<h5>上述3个属性皆为list-style的子属性，可以复合声明如下：ul{ list-style:url("blue.jpg") outside square;}</h5>
+</li><ol type="1"start="0">
+		<li type="none">css盒式模型：<br>在网页设计中，每个元素都是长方形的盒子，盒式模型中重要的概念有：边界(margin),边框（border）填充（padding）内容（content）。边界又称为外边界(也称为外补丁，外空白)是盒子边框与页面边界或其他盒子之间的距离。填充又称为内边界，即内容与边框之间的距离。
+			<div class="margin">margin<div class="border">border<div class="padding">padding<div class="connet">connet</div></div></div></div>
+		</li>
+		<li>边界属性设置margin：表示盒子边框与页面边界或其他盒子之间的距离，属性值为长度值，百分数或auto，属性设置的效果是围绕元素边框的空白<br>margin-(top/right/bottom/left)
+			<br>如果只设置四个分别表示上右下左，如果只设置三个第一个表示上边界第二个表示左右边界第三个表示下边界，如果只设置两个参数值，第一个表示上下第二个表示左右，一个参数值则表示4个边界值相同
+			<br>如：margin:10px 10px 20px 20px;margin:10px;p{margin-top:20px;}
+		</li>
+		<li>边框属性设置border：用来设置边框的宽度，风格，以及颜色。
+			<ul>
+				<li>边框样式border-style:border-style:none(无边框)/hidden（类似none，用于解决边框冲突）dotted(点状边框)dashed(定义虚线)solid(定义实线)double(定义双线，双线的宽度等于border-width的值)groove(定义3d凹槽边框，其效果取决于border-color的值)ridge(定义山脊状边框，其效果取决于border-color的值)inset(定义使页面沉入感边框，其效果取决于border-color的值)outset(定义使页面浮出感边框，其效果取决于border-color的值)
+					<br>与margin属性类似，border-style的属性可以设置多个值如p.cont{border-style:solid dotted dashed}实线上边框点线左右边框，虚线下边框。也可单独设置每个边的属性如border-top-style:;
+				</li>
+				<li>边框宽度border-width：medium/thin/thick/长度值。边框宽度属性也可以单独设置一个边border-top-width:;</li>
+				<li>边框颜色border-color:;颜色属性也可单边设置</li>
+				<li>边框border的复合属性：border:border-width border-style border-color;如：border:10px solid black;</li>
+			</ul>
+		</li>
+		<li>填充属性padding:也称内边界，表示元素内容与边框之间的距离属性值为百分比或长度，属性设置的效果是包含在元素边框里面并围绕着元素内容的元素背景，也称内空白
+			<br>基本语法：padding:长度/百分比.padding也能设置四个边的属性padding-top:
+		</li>
+	</ol>
+</ol>
+<h3>表格</h3>
+<ol type="1">
+	<li>常用表格标记说明:
+		<ul type="none">
+			<li>table:表格标记</li>
+			<li>caption:表格标题标记</li>
+			<li>th:表格表头标记</li>
+			<li>tr表格的行标记</li>
+			<li>td:表格的列标记</li>
+			<li>thead:定义表格的表头</li>
+			<li>tbody:定义表格的主体</li>
+			<li>tfoot:定义表格的页表</li>
+		</ul>
+		<br><br>常见用法：< table border=""width=""height=""><br>< caption>表格标题< /caption><br>< tr><br>< th>< /th><br>< th>< /th><br>< /tr><br>< tr><br>< th>< /th><br>< th>< /th><br>< /tr><br>< /table>
+	</li>
+	<li>表格属性设置
+		<ul type="none">
+		<li>align:left/center/right规定表格相对周围元素的对齐方式</li>
+		<li>bgcolor</li>
+		<li>border:px</li>
+		<li>cellpadding:px/%:单元边沿与其他内容之间的空白</li>
+		<li>cellspacing:单元格之间的空白</li>
+		<li>frame:规定外侧边框哪个部分是可见的:above/below/hsides/vsides/lhs/border/void</li>
+		<li>rules:none/all/rows/cols/groups:规定内侧边框的哪个部分是可见的</li>
+		<li>height</li>
+		<li>width</li>
+		</ul>
+		<ol type="1">
+			<li>border属性:border=""(边框粗细)bordercolor=""（边框颜色）bordercolorlight(表格亮边框颜色,对表格左上边框生效)bordercolordark表示表格安边框颜色(对右下边框生效)</li>
+			<li>background=""可设置背景图像</li>
+			<li>表格边框样式属性frame,rules.基本语法：< table frame=""rules="">< /table>
+				<table border="2px"bordercolor="blue">
+					<caption><strong>frame,rules常见属性值及说明</strong></caption>
+					<tr>
+						<th>frame属性值</th>
+						<th>above</th>
+						<th>below</th>
+						<th>hsides</th>
+						<th>vsides</th>
+						<th>lhs</th>
+						<th>rhs</th>
+						<th>border</th>
+						<th>void</th>
+					</tr>
+					<tr>
+						<th>说明</th>
+						<th>显示上边框</th>
+						<th>显示下边框</th>
+						<th>显示上下边框</th>
+						<th>显示左右边框</th>
+						<th>显示左边框</th>
+						<th>显示右边框</th>
+						<th>显示上下左右边框</th>
+						<th>不显示边框</th>
+					</tr>
+					<tr>
+						<th>rules属性值</th>
+						<th>all</th>
+						<th>none</th>
+						<th>rows</th>
+						<th>cols</th>
+						<th>groups</th>
+					</tr>
+					<tr>
+						<th>说明</th>
+						<th>显示所有内部边框</th>
+						<th>不显示内部边框</th>
+						<th>仅显示行边框</th>
+						<th>仅显示列边框</th>
+						<th>显示介于行列之间的边框</th>
+					</tr>
+				</table>
+			</li>
+			<li>表格单元格间距，边距属性cellspacing和cellpadding</li>
+			<li>tr标记也能用table标记的属性如< tr valign=""></li>
+			<li>设置单元格(td)的属性
+				<table border="1px">
+					<tr>
+						<th>属性值</th>
+						<th>align</th>
+						<th>valign</th>
+						<th>bgcolor</th>
+						<th>background</th>
+						<th>bordercolor</th>
+						<th>bordercolorlight</th>
+						<th>bordercolordark</th>
+						<th>rowspan</th>
+						<th>colspan</th>
+						<th>width</th>
+						<th>height</th>
+					</tr>
+					<tr>
+						<th>说明</th>
+						<th>单元格内内容水平对齐</th>
+						<th>单元格内内容垂直对齐</th>
+						<th>单元格的背景颜色</th>
+						<th>单元格的背景图像</th>
+						<th>单元格的边框颜色</th>
+						<th>单元格的亮边框颜色</th>
+						<th>单元格的暗边框颜色</th>
+						<th>单元格跨行</th>
+						<th>单元格跨列</th>
+						<th>单元格宽度</th>
+						<th>单元格高度</th>
+					</tr>
+				</table>
+			</li>
+			</ol>
+	</li>
+	<li>css table属性
+		<table border="1px"frame="hsides"rules="rows"width="100%">
+			<tr>
+				<td>属性</td>
+				<td>说明</td>
+			</tr>
+			<tr>
+				<td>border-collapse</td>
+				<td>是否把表格边框合并为单一的边框</td>
+			</tr>
+			<tr>
+				<td>border-spacing</td>
+				<td>设置分隔单元格的距离</td>
+			</tr>
+			<tr>
+				<td>caption-side</td>
+				<td>设置表格标题的位置</td>
+			</tr>
+			<tr>
+				<td>empty-cells</td>
+				<td>设置是否显示表格中空的单元格</td>
+			</tr>
+			<tr>
+				<td>table-layout</td>
+				<td>设置显示单元行和列的算法</td>
+			</tr>
+		</table>
+		<ul>
+		<li>border-collapse属性：默认表示表格具有双线边框，可以通过这个属性使表格变为单线框有以下的值：
+			<br>separate:默认值，边框会分开不会忽略border-spacing和empty-cells属性</li>
+			<br>collapse:边框合并为一个单一的框
+			<br>inheirt:从父元素那里继承
+			<li>border-spacing属性：用于设置或检索当表格边框独立时，行和单元格的边框在横向和纵向上的间距。该属性等同于标签属性cellspacing基本用法border-spacing:length length
+			<br><font color="red">只有在border-collapse的值为separate时才会生效</font>
+			<br>如果两个length全部提供那么第一个作用于横向间距，第二个作用于纵向间距
+			</li>
+		<li>caption-side属性：设置表格的标题在哪一边(bottom/left/right/top)</li>
+		<li>empty-cells属性:设置或检索当表格的单元格无内容时是否显示该单元格<br><font color="red">只有在border-collapse的值为separate时才会生效</font></li>
+		<li>table-layout属性：设置或检索表格的布局算法
+			<br>auto:默认自动布局算法，将基于各单元格的内容。表格在每一个单元格读取计算之后才会显示出来
+			<br>fixed:固定布局的算法,在这个算法中，水平布局仅仅是基于表格的宽度，表格边框的宽度，单元格间距，列的宽度与表格内容无关（表格只和设置的宽度有关）。也就是说内容可能被裁切
+		</li>
+		</ul>
+	</li>
+</ol>
+<h3>导航菜单设置</h3>
+<ol type="1">
+	<li>一级水平菜单设置
+		<ol type="1">
+			<li>采用“表格+超链接”来设计，如
+			<br><table class="tab"width="100%"rules="none">
+					<tr>
+						<td width="10%"class="tab"><a href="">首页</a></td>
+						<td width="50%"align="right"><a href="">html笔记</a></td>
+						<td><a href="">css/div笔记</a></td>
+						<td><a href="">js笔记</a></td>
+						<td><a href="">php笔记</a></td>
+						<td><a href="">MySQL笔记</a></td>
+					</tr>
+				</table>
+				<br>< table class="tab"width="100%"rules="none">
+					<br>< tr>
+						<br>< td width="10%"class="tab"><a href="">首页</a></td>
+						<br>< td width="50%"align="right"><a href="">html笔记</a></td>
+						<br>< td>< a href="">css/div笔记< /a>< /td>
+						<br>< td>< a href="">js笔记< /a>< /td>
+						<br>< td>< a href="">php笔记< /a>< /td>
+						<br>< td>< a href="">MySQL笔记< /a>< /td>
+					<br>< /tr>
+				<br>< /table>
+			</li>
+			<li>采用“无序列表+超链接”来设计(在css里设置li为left即可让其横置)
+				<div class="ul">
+				<ul type="none"align="center">
+					<li><a href="">首页</a></li>
+						<li ><a href="">html笔记</a></li>
+						<li><a href="">css/div笔记</a></li>
+						<li><a href="">js笔记</a></li>
+						<li><a href="">php笔记</a></li>
+						<li><a href="">MySQL笔记</a></li>
+				</ul>
+				</div>
+			</li>
+			<li>二极水平导航菜单
+			可用ul来写不过比较麻烦
+			</li>
+		</ol>
+	</li>
+</ol>
+<h3>框架</h3>
+<ol type="1">
+	<li>框架概述：可以在一个网页中放置多个网页，以< frameset>为开头以< /frameset>为结尾中间用< frame src="">来放置目标网页。有frameset的网页中没有body标签，如<a href="框架1.html">框架1text</a>就是一个框架案例
+		<br>代码为：< frameset rows="10%,80%,10%">
+		<br>< frame src=""name="top">
+		<br>	< frameset cols="20%,*">
+		<br>	< frame src=""name="middle_left">
+		<br>	< frame src=""name="middle_right">
+		<br>	< /frameset>
+		<br>	< frame src=""name="bottom">
+		<br>	< /frameset>
+	</li>
+	<li>框架集属性：
+		<table border="1px">
+			<tr>
+				<td>属性</td>
+				<td>frameborder</td>
+				<td>framespacing</td>
+				<td>border</td>
+				<td>bordercolor</td>
+				<td>rows</td>
+				<td>cols</td>
+			</tr>
+			<tr>
+				<td>说明</td>
+				<td>设置框架集的显示效果(可设为0或1来表示边框的显示与否)</td>
+				<td>设置框架间的间距（宽度）</td>
+				<td>设置框架集边框的宽度</td>
+				<td>设置框架集边框的颜色</td>
+				<td>设置框架集的水平分割</td>
+				<td>设置框架集的垂直分割</td>
+			</tr>
+		</table>
+		分割可分为具体数值或是百分比或是用"*"号代替之间用逗号","链接，如< frameset rows="30%,20%,*">
+	</li>
+	<li>框架的设置
+		<ol type="1">
+			<li>框架名称属性name:可以给每个frame标签一个名称，可做超链接的target的属性值，用法：< frame src=""name=""></li>
+			<li>框架中的滚动条属性scrolling:yes/no/auto 可以根据此属性来设定是否显示属性条</li>
+			<li>框架的边距marginwidth和marginheight属性：定义框架的左侧右侧和上侧下侧边距</li>
+			<li>框架属性调整属性noresize:属性值可以时noresize也可以不赋值，表示不允许调整框架的大小</li>
+			<li></li>
+		</ol>
+	</li>
+	<li>浮动框架：浏览器窗口含有独立的子窗口称为浮动框架，也称内联框架。在浏览器窗口中嵌入浮动框架可用iframe标记，该标记为成对标记，必须插入在body标记中，而不能插入frameset标记中。iframe标记的属性值如下：
+		<ul>
+			<li>src:设置源文件属性</li>
+			<li>name:设置框架名称</li>
+			<li>width,height,align</li>
+			<li>frameborder(设置框架边框)scrolling(设置框架滚动条)marginwitdh,marginheight</li>
+		</ul>
+		基本语法：< iframe 属性名称=“”>< /iframe>
+		<br>如：
+		<iframe src="http://www.baidu.com"width="500px"height="500px"name="baidu"align="center"></iframe>
+	</li>
+	<li>框架与超链接关联：框架的另一大优点就是可以动态加载html文档，实现页面内容的局部刷新，这就需要借助于超链接的target属性和freame或iframe标记的name属性，可以完成页面导航的需要。
+	<br>效果如上<a href="http://www.taoge946.cn"target="baidu">点此浮动框架内容改变</a><br><a href="http://www.baidu.com"target="baidu">点此浮动框架变为百度</a>
+	<br>< a href="http://www.taoge946.cn"target="baidu">点此浮动框架内容改变< /a><br>< a href="http://www.baidu.com"target="baidu">点此浮动框架变为百度< /a>
+	<br>href:是要打开的网页，target:是把网页打开到哪个里（看targrt=哪个框架的name，就在该框架打开网页)
+	</li>
+	</li>
+</ol>
+<br><br><br><br><br><br>
+<h3>其他</h3>
+<p>& reg是商标如：&reg；& copy是版权如：&copy;
+<br>有一个标签叫< center >直接可以让文本居中 
+</p>
+<h2>实战笔记</h2>
+<ul>
+	<li>要注意码代码的习惯,写一个标记就把/一块也打了，每个子标记都最好给一个tab，找前后标记时会非常方便不至于找半天上标记或下标记</li>
+	<li>引入网页超链接时一定不要忘了加http://要不然打不开那个网页</li>
+</ul>
+<hr width="100%"size="3px"color="black">
+<center><code>版权所有&copy李金涛</code><br><a href="http://www.miitbeian.gov.cn">备案号:30155004189194401</a>
+</body>
+</html>
