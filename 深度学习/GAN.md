@@ -507,6 +507,231 @@ plt.legend()
 
 
 
+## CGAN（条件GAN）
+
+### 介绍
+
+GAN和DCGAN无论是生成手写数字还是动漫头像都是随机生成的，我们无法确定，当我们想生成某一类图像的时候，就需要CGAN 了
+
+- 原始GAN的缺点：生成的图像是随机的，不可预测的，无法控制网络输出特定的图片，生成目标不明确，可控性不强
+
+- CGAN的核心：就是将属性信息Y融入生成器G和判别器D中，属性y可以是任何标签信息，例如图像的类别，人脸图像的面部表情等
+- CGAN的中心思想：希望可以控制GAN生成的图片，而不是单纯的随机生成图片。具体来说就是在G和D的输入中增加了额外的条件信息,生成器生成的图片只有足够真实且与条件相符才能通过判别器（要求生成真实的狗，生成了真实的猫，但是还应该判断为假）
+- CGAN将GAN的无监督学习转化为了有监督学习
+
+---
+
+#### **从公式看：**
+
+对G和D都添加了一个条件
+
+![image-20220314211233446](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220314211233446.png)
+
+---
+
+
+
+#### **从网络架构看：**
+
+![image-20220314211653685](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220314211653685.png)
+
+![image-20220314211942190](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220314211942190.png)
+
+
+
+在生成器中，作者将输入噪声z和标签y连在一起隐含表示来生成一张图像
+
+在判别器中，图像会和y结合进行判定
+
+
+
+CGAN可以生成指定类型的图片，也可以用于图像的自动标注（以图像特征为条件变量（Y）生成该图像的tag词向量）
+
+![image-20220316201341948](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220316201341948.png)
+
+> CGAN的缺点：
+>
+> 图像边缘模糊，生成的图像分辨率太低，但是它为后面的pix2pix和CycleGAN开拓了道路
+
+### CGAN的构建
+
+和前面的GAN相比，CGAN多了标签，我们需要将标签输入模型之中。一种常用的方法为将标签转换为独热编码。torch内置一种转换为独热编码的方法：torch.eye(),效果如下：可以直接返回对应的独热编码张量
+
+![image-20220317145632121](C:\Users\tao'ge\AppData\Roaming\Typora\typora-user-images\image-20220317145632121.png)
+
+所以我们定义一个函数对标签进行处理
+
+```python
+def one_hot(x,class_count=10): #输入x为类别值，如x是5就返回第五个类别值；class_count为类型数
+    return torch.eye(class_count)[x,:] #是第几类就返回第几行
+```
+
+然后在引入minist的时候可以直接将标签转换为独热编码
+
+```python
+train_ds=torchvision.datasets.MNIST('data',train=True,
+                                    transform=transform,
+                                    target_transform=one_hot,#加了这一个参数，现在输出的标签直接就是独热编码的形式了
+                                    download=True)
+```
+
+### 生成器
+
+生成器和之前相比，多了一个输入condition，现在的输入为一个长度为100的噪声和一个长度为10的条件，在DCGAN的基础上进行修改
+
+多了一个linear层和bn层，独热编码的输入和噪声的输入记过fc和view后变成大小一样的图片然后通过torch.cat方法结合起来
+
+```python
+class Generator(nn.Module):
+    def __init__(self):
+        super(Generator,self).__init__()
+        self.linear1=nn.Linear(100,128*7*7) #这个是输入的噪声
+        self.bn1=nn.BatchNorm1d(128*7*7) 
+
+        self.linear2=nn.Linear(10,128*7*7)  #这个是输入的独热编码，为了方便结合，都变成128*7*7的类型，view再cat后就又变成256*7*7了，就可以直接反卷积了
+        self.bn=nn.BatchNorm1d(128*7*7) 
+
+        self.deconv1=nn.ConvTranspose2d(256,128, 
+                                kernel_size=(3,3),
+                                stride=1,
+                                padding=1)
+                                    #(128,7,7)
+        self.bn2=nn.BatchNorm2d(128)
+        self.deconv2=nn.ConvTranspose2d(128,64,kernel_size=(4,4),stride=2,padding=1) 
+                                    #(64，14,14)
+        self.bn3=nn.BatchNorm2d(64)
+        self.deconv3=nn.ConvTranspose2d(64,1,kernel_size=(4,4),stride=2,padding=1) 
+                                    #(1,28,28)
+
+    def forward(self,n,y): #多一个输入，标签(条件)y,噪声n
+        n=F.relu(self.linear1(n))
+        n=self.bn1(n)
+
+        y=F.relu(self.linear2(y))
+        y=self.bn(y)
+
+
+        n=n.view(-1,128,7,7)
+        y=y.view(-1,128,7,7) #y也这么展开
+        x=torch.cat([n,y],axis=1)#将独热编码和生成的图像在第一个维度（channel）进行合并 输出的大小为 batch,256,7,7
+
+        x=F.relu(self.deconv1(x))
+        x=self.bn2(x)
+        x=F.relu(self.deconv2(x))
+        x=self.bn3(x)
+        x=torch.tanh(self.deconv3(x))
+        return x
+
+
+```
+
+### 判别器
+
+也是在DCGAN中的判别器的基础上进行更改,此时的输入不仅仅是图片，还有长度为10的condition，首先需要把condition链接到和图像一样大的程度，然后与图片进行torch.cat()，变成(2,28,28)的形状
+
+```python
+class Discriminator(nn.Module):
+    def __init__(self):
+        super(Discriminator,self).__init__()
+
+        self.linear1=nn.Linear(10,1*28*28)#将condition变成和图像一样大
+
+        self.conv1=nn.Conv2d(2,64,3,stride=2) 
+        self.conv2=nn.Conv2d(64,128,3,stride=2)
+        self.bn=nn.BatchNorm2d(128)
+        self.Fc=nn.Linear(128*6*6,1)
+    def forward(self,x1,x2): #x1为输入图片，x2为condition
+
+        x2=F.leaky_relu(self.linear1(x2))
+        x2=x2.view(-1,1,28,28)#与输入的图片大小相匹配
+        x=torch.cat([x1,x2],axis=1) #(batch,2,28,28)
+
+        x=F.dropout2d(F.leaky_relu(self.conv1(x)))
+        x=F.dropout2d(F.leaky_relu(self.conv2(x)))
+        x=self.bn(x)
+        x=x.view(-1,128*6*6) 
+        x=torch.sigmoid(self.Fc(x))
+        return x
+
+```
+
+### 训练部分
+
+和之前几乎没有任何区别,区别在当调用生成器的输入时现在需要两个输入了，一个是noise一个是condition
+
+```python
+#绘图部分
+def gen_and_save_img(model,epoch,label_input,noise_input):
+    pre=np.squeeze(model(noise_input,label_input).cpu().numpy()) #在生成器的forward中第一个参数是noise第二个是condition
+    fig=plt.figure(figsize=(4,4))
+    for i in range(pre.shape[0]): #这里得用中括号
+        plt.subplot(4,4,i+1)
+        plt.imshow((pre[i]+1)/2,cmap='gray')
+        plt.axis('off')
+    #plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
+    plt.show()
+    
+#创建种子来生成同一批的图像，有利于观察模型的训练情况
+noise_seed=torch.randn(16,100,device=device)
+label_seed=torch.randint(0,10,size=(16,))#生成16个从0到10的整数
+label_seed_onehot=one_hot(label_seed).to(device)#将labelseed装换为独热编码的形式放到GPU上
+```
+
+```python
+D_loss=[]
+G_loss=[]#建立两个空列表来存损失
+
+for epoch in range(100):
+    d_epoch_loss=0
+    g_epoch_loss=0
+    count=len(dataloader) 
+
+    for step, (img, label) in enumerate(dataloader):#此时需要标签值了
+        img=img.to(device)
+
+        label=label.to(device)
+        
+        size=img.size(0)
+        random_noise=torch.randn(size,100,device=device)
+        
+        #判别器的损失
+        d_optim.zero_grad() 
+        real_output=dis(img,label) #判别器的forward中第一个参数是图片，第二个是标签 
+        d_real_loss=loss_fn(real_output,
+                    torch.ones_like(real_output)) 
+        d_real_loss.backward()
+
+        gen_img=gen(random_noise,label) #生成器中也将label放进来
+        fake_output=dis(gen_img.detach(),label)#将生成的图像和标签放入判别器
+        d_fake_loss=loss_fn(fake_output,torch.zeros_like(fake_output))
+        d_fake_loss.backward()
+
+        d_loss=d_real_loss+d_fake_loss
+        d_optim.step()
+
+        #生成器的损失
+        g_optim.zero_grad()
+        fake_output=dis(gen_img,label)#也是将标签放进来
+        g_loss=loss_fn(fake_output,torch.ones_like(fake_output)) 
+        g_loss.backward()
+        g_optim.step()
+
+        with torch.no_grad():
+            d_epoch_loss+=d_loss.item() 
+            g_epoch_loss+=g_loss.item()
+    with torch.no_grad(): 
+        d_epoch_loss/=count
+        g_epoch_loss/=count
+        D_loss.append(d_epoch_loss)
+        G_loss.append(g_epoch_loss)
+        print('Epoch:',epoch)
+        gen_and_save_img(gen,epoch,label_seed_onehot,noise_seed)
+```
+
+
+
+
+
 
 
 ## GAN优化技巧

@@ -1156,13 +1156,18 @@ type代表媒体类型，其属性值为播放文件的MIME类型
 >
 > ```css
 > .class1:hover .class2{  /*中间要加一个空格*/
->     float:right
-> }                                                                                        
+>  float:right
+> }       
+> /*或是直接*/
+> .class1 .class2:hover{
+>     
+> } 
+> 效果是一样的
 > ```
 >
 > ```html
 > <div class="class1">
->   <div class="class2">aaa</div>
+> <div class="class2">aaa</div>
 > </div>
 > ```
 >
@@ -1479,7 +1484,7 @@ position: staic/absolute/fixed/relative
 
 ```CSS
 @-webkit-keyframes bbb {
-  0%{opacity: 0}
+  0%{opacity: 0} /*opacity 是透明度，实现从透明变得完全不透明*/
   20%{opacity: 1}
   50%{-webkit-transform: scale(0.8)}
   80%{opacity:1}
@@ -1513,7 +1518,7 @@ position: staic/absolute/fixed/relative
 
 - 使用css时一定要准确的指定到想要改变样式的对象，比如想改变表格中某一行的所有图片的大小，就不能仅仅只定义一个类然后给tr或是给tr中的td,应该给tr 之内的img,因为要改的就是图片的样式。
 
-  或是直接定义一个类给图片也行，不过那样得一个一个的给所有图片都
+  或是使用伪类选择器直接定义一个类给图片也行，不过那样得一个一个的给所有图片都
 
   ```css
   .img-background img{
@@ -1575,7 +1580,7 @@ position: staic/absolute/fixed/relative
 
 1. == 与 ===的区别： 
 
-   == 只对数据表面值是否相等进行，而不判断值得数据类型是否相等，而 ===不仅对值进行判断而且对数据类型也进行判断
+   == 只对数据表面值是否相等进行，而不判断值的数据类型是否相等，而 ===不仅对值进行判断而且对数据类型也进行判断
 
    !=与!==也是同理，!=仅仅判断值是否相等而! ==为不绝对等于，值和数据类型都会进行判断
 
@@ -1699,7 +1704,9 @@ window.confirm("请确认") //带取消的确认框,有返回值，点击确认�
 
 
 
-还有以下常用的window对象的方法：（windows 下的子类都能用，如表单中输入框可以直接`form1.user.focus()`）
+>  还有以下常用的window对象的方法：（windows 下的子类都能用，如表单中输入框可以直接`document.form1.user.focus()`）
+>
+> 这样输入条就直接在这个里面了。
 
 - open():打开新的网址或是本地文件
 
@@ -1716,14 +1723,17 @@ window.confirm("请确认") //带取消的确认框,有返回值，点击确认�
 - focus():使指定窗口获得焦点`mywindow.focus()`焦点就在mywindow这个窗口上了
 
   > 常用在表单上，可以指定表单首先需要输入什么
+  >
+  > document.form1.user.focus()
 
 - blur():使窗口不获得焦点（如键盘事件等都还是在原来的网页触发，想要在新窗口触发就得点一下这个新窗口）
 
 
 
 - scrollTo(x,y):当指定页面有滚动条时使用这个调整滚动条使界面滚动到指定坐标，x,y就是两个数不带单位代表向下或是向左右拖动多少像素的滚动条。
-
 - scrollBy():和上面的相比这是相对位置，相对当前滚动多少
+
+##### 定时器
 
 - ==setTimeout(timer)==:在指定的毫秒数后调用函数,只执行一次
 
@@ -1737,12 +1747,21 @@ window.confirm("请确认") //带取消的确认框,有返回值，点击确认�
   setInterval(function(){ alert("Hello"); }, 3000);
   ```
 
+> 要注意这个是需要一开始先定好的，定好之后就一直循环，如果需要全局一直循环触发就可以放到window.onload 中
+>
+> ```javascript
+> window.onload=function(){
+>   setInterval(function(){ time=new Date(); d.innerHTML=s.sup()+s+'\n'+time;}, 1000);
+> }
+> ```
+>
+> 这样就可以随时在页面中更新时间了
+
+
+
 - moveTo(x,y):将目标窗口移动到指定位置
-
 - moveBy(x,y):将目标窗口相对移动
-
 - resizeTo(x,y):改变目标窗口的大小。（不能设置那些不是通过 window.open 创建的窗口）
-
 - resizeBy(x,y):改变当前窗口的大小，可以是负值如`MyWindow.resizeBy(-100,100)`就是使宽减100高加100变成了100*300了
 
 > 改变窗口的基本上都对主窗口没有用，只对使用open打开的窗口有用
@@ -1824,7 +1843,7 @@ document.URL：获取页面URL
 
   > 焦点指的是文本输入时的那个一闪一闪的输入杠，如定义一个文本输入框，点击它准备输入的时候它就获得了焦点，点其他的地方使这个输入杠消失了就是失去焦点事件了。
 
-- onchange:改变< select>元素种的选项或其他表单元素失去桥店，并在其获取角点后内容发生改变时触发
+- onchange:改变< select>元素种的选项(或其他表单元素失去焦点，并在其获取角点后内容)发生改变时触发
 
 - onclick:鼠标单击触发
 
@@ -2270,7 +2289,7 @@ now.getHours()			=19
 - 构造函数：如Date(),RegExp(),String(),Object().和Array()
 - 全局对象：如Math和JSON
 
-在代码的最顶层--不再任何函数内的js代码，可以使用使用js关键字`this`来引用全局对象：
+在代码的最顶层--不在任何函数内的js代码，可以使用使用js关键字`this`来引用全局对象：
 
 ```javascript
 var global=this
@@ -2427,7 +2446,7 @@ n.toPrecision(6)//12345.7
 
 #### 属性访问表达式：
 
-通过属性访问表达式所得到的是一个对象属性或是一个元租的值，js有两种方法可以获得属性：
+通过属性访问表达式所得到的是一个对象属性或是一个元组的值，js有两种方法可以获得属性：
 
 ```javascript
 expression.identifier  //元素.属性
@@ -2534,11 +2553,21 @@ a.length//=>3 注意数组的长度没有改变，虽然上边删了一个数，
 for(var i=1,j=0;i<j;i++,j--)
 ```
 
+8.**||运算符**：
+
+用来代替if，注意使用前要先声明，若没有声明则会报错
+
+```javascript
+function(a){
+    a=a||[]
+    if(a===undefined) a=[]  
+    //这两句的意思都是如果a没有定义就新建一个数组当a
+}
+```
 
 
 
-
-#### **eval()**
+#### ==**eval()**==
 
 一般情况下，eval（）会执行括号内的表达式或是函数，但是==eval()还具有更改局部变量和全局变量的能力==
 
@@ -2623,7 +2652,7 @@ break也可以后面跟一个标签跳出当前循环跳到标签语句，但是
 
 ##### throw语句
 
-异常为当繁盛了某种异常情况或产生错误时产生的一个信号。**抛出异常**就是用信号通知发生了错误或是异常情况，**捕获异常**是指处理这个信号，即采取必要的手段从异常中恢复
+异常为当发生了某种异常情况或产生错误时产生的一个信号。**抛出异常**就是用信号通知发生了错误或是异常情况，**捕获异常**是指处理这个信号，即采取必要的手段从异常中恢复
 
 在js中，当产生错误或是程序使用throw语句时就会显式的抛出异常，使用`try/catch/finally`语句可以捕获异常
 
@@ -2804,7 +2833,7 @@ var a={
 
 ##### 原型
 
-每一个js对象（null除外）都和另一个对象想关联，那'另一个对象'就是原型，每一个对象都从原型继承属性。
+每一个js对象（null除外）都和另一个对象相关联，那'另一个对象'就是原型，每一个对象都从原型继承属性。
 
 所用通过对象直接量创建的对象都具有同一个原型对象，并可以通过Object.prototypeKaua获得对原型的引用。通过关键字new创建的对象的原型就是所使用的构造函数的prototype属性的值，如new Array()创建的对象的原型就是Array.prototype
 
@@ -2846,7 +2875,7 @@ inherit(o)//返回了一个继承自原型对象o的属性的新对象
 
 #### 属性的查询和设置
 
-之前已经提到过，可以使用`.`或是`[]`获得属性的值，获取对象属性的值和给对象的属性赋值时一样的。如果属性名字是非法的（如有空格或是js中的关键字）那就智能通过中括号[]来访问属性的值了，如`a['for']`或是`a['first name']`
+之前已经提到过，可以使用`.`或是`[]`获得属性的值，获取对象属性的值和给对象的属性赋值时一样的。如果属性名字是非法的（如有空格或是js中的关键字）那就只能通过中括号[]来访问属性的值了，如`a['for']`或是`a['first name']`
 
 ##### 继承
 
@@ -2866,7 +2895,7 @@ q.x+q.y  //=>3  虽然在q这个对象中没有定义x和y属性，但它的原�
 
 属性赋值操作先检查原型链，以此判定是否允许赋值操作。例如，如果o继承自一个只读属性x，那么赋值操作时不允许的。
 
-如果允许属性赋值操作，它也总是在院士对象上创建属性或对已有的属性赋值，而不会去修改原型链。
+如果允许属性赋值操作，它也总是在原对象上创建属性或对已有的属性赋值，而不会去修改原型链。
 
 > 在js中，只有查询属性时才会体会到继承的存在，而设置属性和继承无关，这是js的一个==重要的特性==，该特性让程序员可以有选择的覆盖继承的属性
 >
@@ -3227,7 +3256,7 @@ Object.defineProperty(Object.prototype,"extend",{ //给Object.prototype添加一
 
 ##### 原型属性：
 
-对象的原型属性是用来继承属性的，原型属性实在实例对象创建之初就设置好的。
+对象的原型属性是用来继承属性的，原型属性是在实例对象创建之初就设置好的。
 
 - 通过对象直接量创建的对象使用`Object.prototype`作为它们的原型
 - 通过new创建的对象使用构造函数的prototype属性作为它们的原型（如Data.prototype等）
@@ -3894,13 +3923,409 @@ setRectSize(rect,width,height)
 
 和变量不同，关键字this没有作用域的限制，嵌套的函数不会从调用它的函数中继承this。如果嵌套函数作为方法调用，其this的值指向调用它的对象。如果嵌套函数作为函数调用，其this值不是全局对象就是undefined.
 
+```javascript
+var o={
+  m:function (){
+    var self=this //将this的值保存在一个变量中
+    console.log(this === o) // 返回true
+    f();
+
+    function f(){
+      console.log(this === o) //此时返回false 此时的this是全局变量
+      console.log(self === o) //此时是true，因为self是外边那个函数的this
+    }
+  }
+}
+o.m()
+```
+
+
+
+##### 构造函数调用
+
+如果函数或方法调用之前带有关键字new，他就构成构造函数调用。没有形参的构造韩式调用可以省略圆括号，如下面两个代码是等价的
+
+```javascript
+var o= new Object()
+var o= new Object
+```
+
+构造函数调用创建一个新的空对象，这个对象继承自构造函数的prototype属性，构造函数可以使用this关键字来应用这个新创建的对象
+
+> 注：虽然构造函数看上去很像一个方法调用，它依然会使用这个新对象作为调用上下文
+>
+> ```javascript
+> new o.m() //在这个构造函数中this并不是o
+> ```
+
+构造函数通常不使用return，它们通常初始化新对象，当构造函数的函数体执行完毕时，它会显式返回。在这种情况下，构造函数调用表达式的计算结果就是这个新对象的值。如果构造函数使用return返回一个对象，那么调用表达式的值就是这个对象
+
+
+
+#### 函数的实参和形参
+
+##### 可选形参
+
+当调用函数的时候传入的实参比函数声明时指定的形参个数要少，剩下的形参都将设置为undefined值
+
+```javascript
+//将对象o中可枚举的属性名追加至数组a中，并返回这个数组a
+//如果省略a则创建一个新数组并返回这个新数组
+function getPropertyNames(o,/*optional*/a){
+    if(a==undefines)a=[];//如果a没声明（调用时只用了o一个实参时）就新创建一个数组a
+    for(var pro in o) a.push(pro);
+    return a;
+}
+//这个函数调用可以传入一个或两个实参
+var a=getPropertyNames(o)//将o的属性存储到创建的新数组a中
+getPropertyNames(p,a)//将p的属性传入a中
+```
+
+当使用这种可选实参来实现函数时，需要将可选实参放在实参列表的最后。
+
+使用时不能跨过第一个实参直接传入第二个实参，不过可以使用null或是undefined作为占位符然后跨过这个实参直接传入下一个实参，也可以通过/* optional */ 来强调形参
+
+如果输入的参数过多，js默认会省略多出的参数，如果输入的参数过少，省略的实参都将是undefined
+
+**实参对象**
+
+在函数体内，标识符arguments是指向实参对象的引用，是一个类数组对象，这样
+
+实参对象有一个重要的作用，就是可以让函数操作任意数量的实参，如下：
+
+```javascript
+fuction max(/*...*/){ //可以不用加/**/(这个就相当于注释，是给程序员看的)直接function max()就行
+    var max=Number.NEGATIVE_INFINITY// 这个相当于负无穷，初始化max为负无穷表示无论输入任意值都比它大
+    for (var i=0;i<arguments.length;i++) 
+        if (arguments[i]>max) max=arguments[i]//通过argument获取输入的参数
+    return max
+}
+console.log(max(1,2,3,6,5)) //结果为6
+```
+
+实参本身和argument[ ]是等价的，修改argument[i]就相当于修改输入的实参
+
+```javascript
+function f(x){
+    console.log(x)
+    arguments[0]=null
+    console.log(x) //此时输出为null
+}
+```
+
+除了数组元素，实参对象arguments还定义了callee和caller属性，callee属性指代当前正在执行的函数,caller指代调用当前正在执行的函数的函数。在匿名函数中通过callee来递归的调用自身非常好用。
+
+```javascript
+var a=function(x){
+    if(x<=1) return 1
+    return x*arguments.callee(x-1)  //rguments.callee（x）就相当于正在使用的这个函数本身，因为是匿名函数所以递归不是很方便，就可以这么着递归
+}
+```
 
 
 
 
 
+**将对象属性用作实参**
+
+当一个函数需要传入的参数过多时，最好通过名/值的形式来传入参数，这样参数的顺序就无关紧要了。想要实现这样，在定义函数的时候，出入的实参都写入一个单独的对象之中，在调用的时候传入一个对象，对象中的名/值对是真正需要的实参数据
+
+```javascript
+function arraycopy(from,from_start,to,to_start,length){
+    ...
+}
+function easycopy(args){
+    arraycopy(args.from,
+              args.from_start||0,//这里设定了默认值，若没有设置from_start则默认为0
+              args.to,
+              args.to_start ||0,
+              args.length)
+}
+//在使用时：
+var a=[1,2,3,4],b=[]
+eastcopy({from:a,to:b,length:4})
+```
+
+就是可以使用一个函数来使对象作为函数的输入从而简化目标函数的输入
+
+#### 作为值的函数
+
+在js中，函数不仅仅是一种语法，也是值，就是说可以
+
+- 将函数赋值给变量，
+- 储存在对象的属性中
+- 储存在数组的元素中
+- 作为参数传入另一个函数
+
+可以将函数赋值给变量
+
+```javascript
+var function squ(x){return x*x}
+var s=squ //此时s和squ代指同一个函数
+s(4)==squ(4)==16
+```
+
+也可以赋值给属性
+
+```javascript
+var o={squ:function(x){return x*x}}
+var y=o.squ(16)  //y等于256
+```
+
+函数甚至可以不需要名字,可以赋值给数组元素
+
+```javascript
+var a=[function(x){return x*x},20]
+a[0](a[1]) //为400 ，a[0]的函数传入a[1]的值
+```
+
+##### 自定义函数的属性
+
+js中的函数不是原始值，而是一种特殊的对象，函数可以拥有属性,我们可以根据需求自己给函数定义属性
+
+```javascript
+aaa.counter=0
+
+function aaa(){
+  return aaa.counter+=1;
+}
+```
 
 
+
+#### 作为命名空间的函数
+
+（在写某一个模块的时候防止命名冲突使用）
+
+在函数中声明的变量在整个函数体内都是可见的（包括在嵌套的函数中），在函数的外部是不可见的。不在任何函数内声明的变量是全局变量，在整个js程序中都是可见的。但是如果我们想要只是想在一个区域内存在的变量的话，我们可以简单的定义一个函数用作临时的命名空间，在这个空间内定义的变量都不会污染到全局命名空间。
+
+如写了一个js代码块，当这个代码块放到不同的程序中运行时，无法得知这个变量是否已经创建。解决办法就是将代码放入一个函数内，然后调用这个函数，这样全局变量就变成了函数内的局部变量。
+
+```javascript
+function mymodule(){
+    //模块代码
+    //这个模块所使用的所有变量都是局部变量
+    //而不是污染全局命名空间
+}
+mymodule() //最后不要忘了调用
+```
+
+这样仅仅是定义了一个单独的全局变量，一个函数。我们也可以直接定义一个匿名函数，并在单个表达式中调用它：
+
+```javascript
+(function(){ //匿名的函数表达式
+    //模块代码
+}())//结束函数定义并立即调用它
+```
+
+> 注意一定要在function前加一个括号，这样表示为立即调用的函数
+>
+> 相当于(  ==function(){ return a}==    ( )   )     ==  a()
+
+#### 闭包
+
+JS采用词法作用域，函数的执行依赖于变量的作用域，这个作用域是在函数定义时决定的，而不是函数调用时决定的。函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，这种特性被称为'闭包'
+
+> 闭包是指函数变量可以被隐藏于作用域链之内，因此看起来是函数将变量‘包裹’了起来
+
+从技术的角度来讲，所有的js函数都是闭包，它们都是对象，它们都关联到作用域链。
+
+理解闭包首先要了解嵌套函数的词法作用域规则，看以下代码：
+
+```javascript
+var a='global'
+function checka(){
+    var a='local'
+    function f(){return a}
+    return f()
+}
+checka() //此时肯定返回的是local
+
+var a='global'
+function checka(){
+    var a='local'
+    function f(){return a}
+    return f
+}
+checka()() //现在checka返回的是一个函数对象f而不是直接返回结果 相当于checka()=f  checka()()=f()
+		   //但是得到的结果仍是local
+```
+
+从上述的结果我们可知，闭包的特性可以捕捉到局部变量和参数，并一直保存下来，看起来像这些变量绑定到了其中定义它们的外部函数
+
+
+
+```javascript
+var uniqueInteger=(function(){ //前面加括号了，是立即调用的函数
+  var counter=0;  //函数的私有状态
+  return function (){return counter++;};
+}())
+
+console.log(uniqueInteger())//0
+console.log(uniqueInteger())//1
+console.log(uniqueInteger())//2
+```
+
+上面的结果为每次uniqueInteger()的值都不一样，每次加一
+
+嵌套的函数时可以访问作用域内的变量的，而且可以访问外部函数中定义的counter变量，**当外部函数返回之后，其他任何代码都无法访问counter变量，只有内部的函数才能访问到它**。
+
+像counter一样的私有变量不是智能用在一个单独的闭包内，在同一个外部函数内定义的多个嵌套函数也可以访问它，这多个嵌套函数都共享一个作用域链，如下代码：
+
+```javascript
+function counter(){
+    var n=0;
+    return{
+        count:function(){return n++}, //这里是n++,所以第一个count为0，如果是++n则第一个count为1
+        reset:function(){return n=0}
+    }
+}
+
+var c=counter(),d=counter()
+c.count() //0
+c.count() //1
+d.count() //0  c,d之间互不影响
+```
+
+counter函数返回了一个对象，该对象可以当计数器使用，这个对象包含两个方法：count()返回下一个整数，reset将计数器重置内部状态
+
+这两种方法都可以访问私有变量n，每次调用counter()都会创建一个新的作用链和一个新的私有变量，所以调动counter两次（c,d）就得到了两个计数器对象，而且彼此包含不同的私有变量。
+
+
+
+
+
+#### 函数属性，方法和构造函数
+
+在js 中，函数是值，对函数执行typeof运算会返回字符串function。函数也是对象，也可以拥有属性和方法。
+
+##### length属性
+
+在函数体内，arguments.length 表示传入函数的实参的个数，而函数本身的length属性则有着不同的含义。函数的length属性是只读属性，它代表函数期望输入的实参的数量
+
+```javascript
+function check(args){
+    var actual=args.length        //实参的真实个数
+    var expect=args.callee.length //期望的实参个数
+    if(actual!==expect)   //如果不同则抛出异常
+        throw Error('')
+}
+function f(x,y,z){
+    check(arguments) //检查实参个数和期望的实参个数是否一致
+    return x+y+z
+}
+```
+
+
+
+##### call()方法和apply()方法
+
+通过调用的方式来简介调用函数，这两个方法的第一个实参是调用函数的母对象，他是调用上下文，在函数体内通过this来 获得对它的引用。如：
+
+```javascript
+f.call(o)
+f.apply(o)
+//和一下代码的效果类似：
+o.m=f  //将f储存为o的临时方法
+o.m()  //调用它，不出入参数
+delet o.m  //将临时方法删除
+```
+
+相当于是使用f函数对对象o进行操作，call和apply也可以带参数
+
+```javascript
+f.call(o,1,2) //带了两个参数
+f.apply(o,[1,2]) //apply和call类似但在传入参数时实参都放入到一个数组当中
+```
+
+> 两种方法的功能是一样的不过就是传入参数的形式不一样，一般一个参数使用call，多个参数使用apply
+
+
+
+##### bind()方法
+
+作用是将函数绑定至某个对象，挡在函数f()上调用bind()方法并传入一个对象o作为参数，这个方法将返回一个新的函数（以函数调用的方式），调用新的函数会吧原始的函数F()当做o的方法来调用，传入新的函数的任何实参都将传入原始函数。
+
+```javascript
+function f(y){return this.x+y}  //这是待绑定的函数
+var o={x:1}  //这是要绑定的对象 ,绑定之后上下文this就是o了
+var g=f.bind(o)  //通过调用g(x)来调用o.f(x)
+g(2)  //为3
+```
+
+也可以通过下面的代码轻松实现绑定
+
+```javascript
+fuction bind(f,o){
+    if (f.bind) return f,bind(o) //如果bind方法存在的话这么绑定
+    else return function(){
+        return f.apply(o,arguments)
+    }
+}
+```
+
+
+
+##### Function()构造函数
+
+```javascript
+var f= new Function('x','y','return x*y')
+//等价于
+var f=function(x,y){return x*y}
+```
+
+Function()构造函数可以传入任意数量的字符串实参，最后一个实参所表示的文本就是函数体，它可以包含任意的js语句，每两条语句之间用分号分隔。传入构造函数的其他所有的实参字符串是指定函数的形参的名字的字符串。如果定义的函数不包含任何参数，只需给构造函数简单的传入一个字符串--函数体即可。
+
+> 构造函数所创建的函数并不是使用词法作用域，相反，函数体代码的编译在顶层函数（全局作用域），如：
+>
+> ```javascript
+> var a='global'
+> function b(){
+>     var a='local'
+>     return new Function('return a')//构造函数无法捕获局部作用域
+> }
+> b()()//所以此时返回的是global （两个括号是直接执行这个函数，相当于f=b()一个括号仅仅是赋值 ,b()()=f() ）
+> ```
+
+
+
+#### 函数式编程
+
+在js中可以像操纵对象一样操纵函数，es5中一些数组方法如map()和reduce()就非常适用于函数式编程风格。
+
+##### 使用函数处理数组：
+
+平常要是想要对一个数组求和或者平均时一般是写一个函数，不过也可以直接使用数组方法来求，这样更简洁
+
+```javascript
+//首先定义两个简单的函数方法
+var sum=function(x,y){return x+y}
+var square=function(x){return x*x}
+//然后将函数和数组方法结合起来
+var data=[1,1,3,5,5]
+var mean=data.reduce(sum)/data.length
+var dev=data.map(function(x){return x-mean})
+```
+
+##### 高阶函数
+
+高阶函数就是操作函数的函数，它接收一个或多个函数作为参数，并返回一个新函数
+
+```javascript
+function not(f){
+    return function(){
+    	var result=f.apply(this,arguments)//调用f和f中的参数
+        return !result
+    }
+}
+//这个not()函数就是一个高阶函数，这个高阶函数返回一个新的函数，这个新函数将它的实参传入f()并返回f的返回值的逻辑非
+
+var even=function(x){ return x%2 ===0} //判断a是否为偶数
+var odd=not(even)  //通过not创建了一个新函数，所做的事和even相反
+[1,1,3,5,5].every(odd)  //true 每个元素都是奇数
+```
+
+not接收一个函数作为参数，并返回一个新函数，所以是高阶函数
 
 
 
